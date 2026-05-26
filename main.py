@@ -25,7 +25,6 @@ for col in features:
     df[ling_col_name] = df[col].apply(linguistic_mapping)
     ling_cols.append(ling_col_name)
 
-print("Đang phân hoạch ngữ nghĩa và trích xuất luật...")
 rules_df = df.groupby(ling_cols + [target]).size().reset_index(name='Tan_suat')
 
 rule_base = {}
@@ -44,7 +43,6 @@ for index, row in rules_df.iterrows():
 MIN_SUPPORT = 5
 final_rules = {k: v for k, v in rule_base.items() if v['Tan_suat'] >= MIN_SUPPORT}
 
-print("\n=== BỘ LUẬT CHẨN ĐOÁN TIỂU ĐƯỜNG TỪ THUẬT TOÁN SQ-RuleExtract ===")
 sorted_rules = sorted(final_rules.items(), key=lambda x: x[1]['Ket_luan'])
 
 for idx, (antecedent, info) in enumerate(sorted_rules):
